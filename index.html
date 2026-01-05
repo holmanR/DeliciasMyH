@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Delicias MyH - Postres Caseros</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
@@ -13,9 +14,9 @@
     <img src="logo.jpeg" alt="Logo Delicias MyH" class="logo-img">
     <div class="header-info">
       <strong>Delicias MyH</strong>
-      <span>📍 Pedidos a domicilio</span>
-      <span>📞 321 645 4377</span>
-      <span>📞 300 149 4231</span>
+      <span><i class="fa-solid fa-location-dot"></i> Pedidos a domicilio</span>
+      <span><i class="fa-solid fa-phone"></i> 321 645 4377</span>
+      <span><i class="fa-solid fa-phone"></i> 321 645 4377</span>
     </div>
   </div>
 </header>
@@ -261,24 +262,13 @@
     <button onclick="toggleCarrito()">❌</button>
   </div>
   <div id="items-carrito"></div>
+
   <div class="carrito-footer">
-    <strong>Total: <span id="total-carrito">$0</span></strong>
+     <strong>Total: <span id="total-carrito">$0</span></strong>
   </div>
 
-  <div class="datos-cliente">
-  <input type="text" id="nombreCliente" placeholder="👤 Tu nombre">
-  <input type="text" id="direccionCliente" placeholder="📍 Dirección de entrega">
-  
-  <select id="metodoPago">
-    <option value="">💰 Método de pago</option>
-    <option value="Efectivo">Efectivo</option>
-    <option value="Nequi">Nequi</option>
-    <option value="Daviplata">Daviplata</option>
-  </select>
-</div>
-
-  <button class="btn-whatsapp" onclick="enviarPedidoWhatsApp()">
-  📲 Pedir por WhatsApp
+  <button class="btn-finalizar" onclick="abrirModalCliente()">
+     Finalizar pedido
   </button>
 </div>
 
@@ -307,6 +297,23 @@ window.onclick = function(event) {
   }
 }
 </script>
+
+<div id="modalCliente" class="modal">
+  <div class="modal-contenido">
+    <span class="cerrar" onclick="cerrarModalCliente()">&times;</span>
+
+    <h2><i class="fa-solid fa-user"></i> Datos del cliente</h2>
+
+    <input type="text" id="nombreCliente" placeholder="Nombre completo">
+    <input type="tel" id="telefonoCliente" placeholder="Teléfono">
+    <input type="text" id="direccionCliente" placeholder="Dirección">
+    <textarea id="notaCliente" placeholder="Observaciones (opcional)"></textarea>
+
+    <button class="btn-confirmar" onclick="enviarPedidoWhatsApp()">
+      <i class="fa-brands fa-whatsapp"></i> Enviar pedido
+    </button>
+  </div>
+</div>
 
 </body>
 </html>

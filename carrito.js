@@ -1,17 +1,17 @@
 let carrito = [];
 
-// Agregar producto tomando nombre y precio reales desde la card
+// ==========================
+// AGREGAR PRODUCTOS
+// ==========================
 function agregarDesdeCard(btn) {
-  // Animación visual
   btn.classList.add("agregado");
   btn.textContent = "Agregado ✓";
 
   setTimeout(() => {
     btn.classList.remove("agregado");
-    btn.textContent = "Agregar";
+    btn.textContent = "Comprar";
   }, 900);
 
-  // Lógica del carrito
   const card = btn.closest('.card');
   const nombre = card.querySelector('h3').innerText.trim();
   const precioTexto = card.querySelector('p').innerText;
@@ -20,23 +20,21 @@ function agregarDesdeCard(btn) {
   agregarAlCarrito(nombre, precio);
 }
 
-
 function agregarAlCarrito(nombre, precio) {
   const item = carrito.find(p => p.nombre === nombre);
 
   if (item) {
     item.cantidad++;
   } else {
-    carrito.push({
-      nombre,
-      precio,
-      cantidad: 1
-    });
+    carrito.push({ nombre, precio, cantidad: 1 });
   }
 
   renderCarrito();
 }
 
+// ==========================
+// MODIFICAR CANTIDADES
+// ==========================
 function cambiarCantidad(nombre, delta) {
   const item = carrito.find(p => p.nombre === nombre);
   if (!item) return;
@@ -55,6 +53,9 @@ function eliminarProducto(nombre) {
   renderCarrito();
 }
 
+// ==========================
+// RENDER DEL CARRITO
+// ==========================
 function renderCarrito() {
   const contenedor = document.getElementById("items-carrito");
   const totalEl = document.getElementById("total-carrito");
@@ -69,16 +70,9 @@ function renderCarrito() {
     contenedor.innerHTML += `
       <div class="item-carrito">
         <div class="item-info">
-          <strong class="item-nombre">${p.nombre}</strong>
-
-          <div class="item-detalles">
-            <span>Cantidad: ${p.cantidad}</span>
-            <span>Subtotal: $${formatearPrecio(subtotal)}</span>
-          </div>
-
-          <div class="item-precio">
-            Precio unitario: $${formatearPrecio(p.precio)}
-          </div>
+          <strong>${p.nombre}</strong>
+          <div>Cantidad: ${p.cantidad}</div>
+          <div>Subtotal: $${formatearPrecio(subtotal)}</div>
         </div>
 
         <div class="controles">
@@ -92,60 +86,81 @@ function renderCarrito() {
   });
 
   totalEl.textContent = '$' + formatearPrecio(total);
-
   document.getElementById("contador-carrito").textContent =
     carrito.reduce((acc, p) => acc + p.cantidad, 0);
 }
 
-
+// ==========================
+// ABRIR / CERRAR CARRITO
+// ==========================
 function toggleCarrito() {
   document.getElementById("carrito-panel").classList.toggle("activo");
   document.getElementById("overlay-carrito").classList.toggle("activo");
 }
 
-function enviarPedidoWhatsApp() {
+// ==========================
+// MODAL CLIENTE (ARREGLADO)
+// ==========================
+function abrirModalCliente() {
   if (carrito.length === 0) {
-    alert("Tu carrito está vacío");
+    alert("El carrito está vacío");
     return;
   }
 
-  const nombre = document.getElementById("nombreCliente").value.trim();
-  const direccion = document.getElementById("direccionCliente").value.trim();
-  const pago = document.getElementById("metodoPago").value;
+  // ABRIR MODAL
+  document.getElementById("modalCliente").style.display = "block";
 
-  if (!nombre) {
-    alert("Por favor ingresa tu nombre");
-    return;
-  }
+  // CERRAR CARRITO
+  document.getElementById("carrito-panel").classList.remove("activo");
+  document.getElementById("overlay-carrito").classList.remove("activo");
 
-  if (!direccion) {
-    alert("Por favor ingresa la dirección de entrega");
-    return;
-  }
-
-  if (!pago) {
-    alert("Selecciona un método de pago");
-    return;
-  }
-
-  let mensaje = `Hola, soy ${nombre} \n\n *MI PEDIDO*:\n`;
-  let total = 0;
-
-  carrito.forEach(producto => {
-    mensaje += `• ${producto.nombre} x${producto.cantidad} = $${producto.precio * producto.cantidad}\n`;
-    total += producto.precio * producto.cantidad;
-  });
-
-  mensaje += `\n *Total:* $${total}`;
-  mensaje += `\n *Dirección:* ${direccion}`;
-  mensaje += `\n *Pago:* ${pago}`;
-
-  let telefono = "573216454377"; // TU NÚMERO
-  let url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
-
-  window.open(url, "_blank");
+  // BLOQUEAR SCROLL
+  document.body.style.overflow = "hidden";
 }
 
+function cerrarModalCliente() {
+  document.getElementById("modalCliente").style.display = "none";
+
+  // VOLVER A MOSTRAR CARRITO
+  document.getElementById("carrito-panel").classList.add("activo");
+  document.getElementById("overlay-carrito").classList.add("activo");
+
+  // RESTAURAR SCROLL
+  document.body.style.overflow = "auto";
+}
+
+// ==========================
+// WHATSAPP
+// ==========================
+function enviarPedidoWhatsApp() {
+  const nombre = document.getElementById("nombreCliente").value;
+  const telefono = document.getElementById("telefonoCliente").value;
+  const direccion = document.getElementById("direccionCliente").value;
+  const nota = document.getElementById("notaCliente").value;
+
+  if (!nombre || !telefono || !direccion) {
+    alert("Por favor completa los datos obligatorios");
+    return;
+  }
+
+  let mensaje = `*Pedido Delicias MyH* \n\n`;
+  carrito.forEach(p => {
+    mensaje += `• ${p.nombre} x${p.cantidad} = $${p.precio * p.cantidad}\n`;
+  });
+
+  mensaje += `\n *Cliente:* ${nombre}`;
+  mensaje += `\n *Tel:* ${telefono}`;
+  mensaje += `\n *Dirección:* ${direccion}`;
+  if (nota) mensaje += `\n *Nota:* ${nota}`;
+
+  const url = `https://wa.me/573216454377?text=${encodeURIComponent(mensaje)}`;
+  window.open(url, "_blank");
+
+  cerrarModalCliente();
+}
+
+// ==========================
 function formatearPrecio(valor) {
   return valor.toLocaleString('es-CO');
 }
+
