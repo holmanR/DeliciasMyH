@@ -61,10 +61,10 @@
   <div class="combos-grid">
 
     <!-- COMBO 1 -->
-    <div class="card combo-card">
-      <img src="leches D.jpeg" alt="Combo Tres Leches + Bolis">
+    <div class="card combo-card" data-nombre="Combo Especial 1">
+      <img src="leches D.jpeg" alt="Combo Especial 1">
       <div class="card-content">
-        <h3> Postre Leches + 5 Bolis</h3>
+        <h3>Postre Tres Leches + 5 Bolis</h3>
         <p>$9.000</p>
         <button class="btn-carrito" onclick="agregarDesdeCard(this)">
           Comprar
@@ -73,8 +73,8 @@
     </div>
 
     <!-- COMBO 2 -->
-    <div class="card combo-card">
-      <img src="leches D.jpeg" alt="Combo Arequipe + Bolis">
+    <div class="card combo-card" data-nombre="Combo Especial 2">
+      <img src="leches D.jpeg" alt="Combo Especial 2">
       <div class="card-content">
         <h3>Postre Arequipe + 5 Bolis</h3>
         <p>$6.000</p>
@@ -85,10 +85,10 @@
     </div>
 
     <!-- COMBO 3 -->
-    <div class="card combo-card">
-      <img src="leches D.jpeg" alt="Combo Especial">
+    <div class="card combo-card" data-nombre="Combo Especial 3">
+      <img src="leches D.jpeg" alt="Combo Especial 3">
       <div class="card-content">
-        <h3>5 Postres tres leches + 5 Bolis</h3>
+        <h3>5 Postres Tres Leches + 5 Bolis</h3>
         <p>$30.000</p>
         <button class="btn-carrito" onclick="agregarDesdeCard(this)">
           Comprar
@@ -307,7 +307,13 @@ window.onclick = function(event) {
     <input type="text" id="nombreCliente" placeholder="Nombre completo">
     <input type="tel" id="telefonoCliente" placeholder="Teléfono">
     <input type="text" id="direccionCliente" placeholder="Dirección">
-    <textarea id="notaCliente" placeholder="Observaciones (opcional)"></textarea>
+    <label for="metodoPago">Método de pago</label>
+      <select id="metodoPagoCliente">
+       <option value="Nequi">Nequi</option>
+       <option value="Daviplata">Daviplata</option>
+       <option value="Efectivo">Efectivo</option>
+      </select>
+    <textarea id="notaCliente" placeholder="Hora de Entrega (opcional)"></textarea>
 
     <button class="btn-confirmar" onclick="enviarPedidoWhatsApp()">
       <i class="fa-brands fa-whatsapp"></i> Enviar pedido

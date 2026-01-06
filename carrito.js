@@ -12,10 +12,12 @@ function agregarDesdeCard(btn) {
     btn.textContent = "Comprar";
   }, 900);
 
-  const card = btn.closest('.card');
-  const nombre = card.querySelector('h3').innerText.trim();
-  const precioTexto = card.querySelector('p').innerText;
-  const precio = parseInt(precioTexto.replace(/[^0-9]/g, ''));
+  const card = btn.closest(".card");
+  const nombre =
+  card.dataset.nombre ||
+  card.querySelector("h3").innerText.trim();
+  const precioTexto = card.querySelector("p").innerText;
+  const precio = parseInt(precioTexto.replace(/[^0-9]/g, ""));
 
   agregarAlCarrito(nombre, precio);
 }
@@ -74,7 +76,6 @@ function renderCarrito() {
           <div>Cantidad: ${p.cantidad}</div>
           <div>Subtotal: $${formatearPrecio(subtotal)}</div>
         </div>
-
         <div class="controles">
           <button onclick="cambiarCantidad('${p.nombre}', -1)">➖</button>
           <button onclick="cambiarCantidad('${p.nombre}', 1)">➕</button>
@@ -85,7 +86,7 @@ function renderCarrito() {
     `;
   });
 
-  totalEl.textContent = '$' + formatearPrecio(total);
+  totalEl.textContent = "$" + formatearPrecio(total);
   document.getElementById("contador-carrito").textContent =
     carrito.reduce((acc, p) => acc + p.cantidad, 0);
 }
@@ -99,7 +100,7 @@ function toggleCarrito() {
 }
 
 // ==========================
-// MODAL CLIENTE (ARREGLADO)
+// MODAL CLIENTE
 // ==========================
 function abrirModalCliente() {
   if (carrito.length === 0) {
@@ -107,51 +108,51 @@ function abrirModalCliente() {
     return;
   }
 
-  // ABRIR MODAL
   document.getElementById("modalCliente").style.display = "block";
-
-  // CERRAR CARRITO
   document.getElementById("carrito-panel").classList.remove("activo");
   document.getElementById("overlay-carrito").classList.remove("activo");
-
-  // BLOQUEAR SCROLL
   document.body.style.overflow = "hidden";
 }
 
 function cerrarModalCliente() {
   document.getElementById("modalCliente").style.display = "none";
-
-  // VOLVER A MOSTRAR CARRITO
   document.getElementById("carrito-panel").classList.add("activo");
   document.getElementById("overlay-carrito").classList.add("activo");
-
-  // RESTAURAR SCROLL
   document.body.style.overflow = "auto";
 }
 
 // ==========================
-// WHATSAPP
+// WHATSAPP (FORMATO ESTÉTICO)
 // ==========================
 function enviarPedidoWhatsApp() {
-  const nombre = document.getElementById("nombreCliente").value;
-  const telefono = document.getElementById("telefonoCliente").value;
-  const direccion = document.getElementById("direccionCliente").value;
-  const nota = document.getElementById("notaCliente").value;
+  const nombre = document.getElementById("nombreCliente").value.trim();
+  const telefono = document.getElementById("telefonoCliente").value.trim();
+  const direccion = document.getElementById("direccionCliente").value.trim();
+  const nota = document.getElementById("notaCliente").value.trim();
 
-  if (!nombre || !telefono || !direccion) {
-    alert("Por favor completa los datos obligatorios");
+  const metodoPagoSelect = document.getElementById("metodoPagoCliente");
+  const metodoPago = metodoPagoSelect ? metodoPagoSelect.value : "";
+
+  if (!nombre || !telefono || !direccion || !metodoPago) {
+    alert("Por favor completa todos los datos y selecciona el método de pago");
     return;
   }
 
-  let mensaje = `*Pedido Delicias MyH* \n\n`;
+  let mensaje = `*Pedido Delicias MyH*\n\n`;
+  let totalPedido = 0;
+
   carrito.forEach(p => {
-    mensaje += `• ${p.nombre} x${p.cantidad} = $${p.precio * p.cantidad}\n`;
+    totalPedido += p.precio * p.cantidad;
+    mensaje += `(${p.cantidad}) ${p.nombre}\n`;
   });
 
-  mensaje += `\n *Cliente:* ${nombre}`;
-  mensaje += `\n *Tel:* ${telefono}`;
-  mensaje += `\n *Dirección:* ${direccion}`;
-  if (nota) mensaje += `\n *Nota:* ${nota}`;
+  mensaje += `\n*Total a pagar:* $${formatearPrecio(totalPedido)}`;
+  mensaje += `\n\n*Cliente:* ${nombre}`;
+  mensaje += `\n*Tel:* ${telefono}`;
+  mensaje += `\n*Dirección:* ${direccion}`;
+  mensaje += `\n*Método de pago:* ${metodoPago}`;
+
+  if (nota) mensaje += `\n*Nota:* ${nota}`;
 
   const url = `https://wa.me/573216454377?text=${encodeURIComponent(mensaje)}`;
   window.open(url, "_blank");
@@ -161,6 +162,5 @@ function enviarPedidoWhatsApp() {
 
 // ==========================
 function formatearPrecio(valor) {
-  return valor.toLocaleString('es-CO');
+  return valor.toLocaleString("es-CO");
 }
-
