@@ -11,7 +11,7 @@
 
 <header id="encabezado" class="encabezado-principal">
   <div class="header-container">
-    <img src="logo.jpeg" alt="Logo Delicias MyH" class="logo-img">
+    <img src="recursos/logo.jpeg" alt="Logo Delicias MyH" class="logo-img">
     <div class="header-info">
       <strong>Delicias MyH</strong>
       <span><i class="fa-solid fa-location-dot"></i> Pedidos a domicilio</span>
@@ -23,7 +23,7 @@
 
 <section class="products">
   <div class="card" onclick="openModal('postres')">
-    <img src="leches D.jpeg" alt="Postres">
+    <img src="recursos/leches D.jpeg" alt="Postres">
     <div class="card-content">
       <h3>Postres</h3>
       <p>Variedad de postres caseros</p>
@@ -45,14 +45,6 @@
       <p>Crujientes y sabrosos</p>
     </div>
   </div>
-
-  <div class="card" onclick="openModal('mosaicos')">
-    <img src="mosaico.jpeg" alt="Mosaicos">
-    <div class="card-content">
-      <h3>Mosaicos</h3>
-      <p>Mosaicos de gelatina</p>
-    </div>
-  </div>
 </section>
 
 <section class="combos">
@@ -62,7 +54,7 @@
 
     <!-- COMBO 1 -->
     <div class="card combo-card" data-nombre="Combo Especial 1">
-      <img src="leches D.jpeg" alt="Combo Especial 1">
+      <img src="recursos/leches D.jpeg" alt="Combo Especial 1">
       <div class="card-content">
         <h3>1 Postre Tres Leches <br>
             5 Bolis</h3>
@@ -75,7 +67,7 @@
 
     <!-- COMBO 2 -->
     <div class="card combo-card" data-nombre="Combo Especial 2">
-      <img src="leches D.jpeg" alt="Combo Especial 2">
+      <img src="recursos/arequipe.webp" alt="Combo Especial 2">
       <div class="card-content">
         <h3>1 Postre Tres Leches <br> 
             1 Postre Arequipe <br>
@@ -89,7 +81,7 @@
 
     <!-- COMBO 3 -->
     <div class="card combo-card" data-nombre="Combo Especial 3">
-      <img src="leches D.jpeg" alt="Combo Especial 3">
+      <img src="recursos/boreo.jpeg" alt="Combo Especial 3">
       <div class="card-content">
         <h3>5 Postres Tres Leches <br>
             1 Postre Arequipe <br>
@@ -114,16 +106,16 @@
     <div class="sub-products">
 
       <div class="card">
-        <img src="https://img-global.cpcdn.com/recipes/376b3bb47649856c/680x781cq80/postre-de-tres-leches-foto-principal.jpg">
+        <img src="recursos/poreo.jpg">
         <div class="card-content">
           <h3>Tres Leches Oreo</h3>
-          <p>$6.000</p>
+          <p>$7.000</p>
           <button class="btn-carrito" onclick="agregarDesdeCard(this)">Comprar</button>
         </div>
       </div>
 
       <div class="card">
-        <img src="leches D.jpeg">
+        <img src="recursos/leches D.jpeg">
         <div class="card-content">
           <h3>Tres Leches Ducales</h3>
           <p>$6.000</p>
@@ -132,10 +124,19 @@
       </div>
 
       <div class="card">
-        <img src="https://thumbs.dreamstime.com/b/postre-sabroso-hecho-con-la-leche-el-arequipe-y-queso-cotta-del-panna-149820629.jpg">
+        <img src="recursos/arequipe.webp">
         <div class="card-content">
           <h3>Arequipe</h3>
           <p>$2.500</p>
+          <button class="btn-carrito" onclick="agregarDesdeCard(this)">Comprar</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="recursos/mosaico.jpeg">
+        <div class="card-content">
+          <h3>Mosaicos</h3>
+          <p>$5.000</p>
           <button class="btn-carrito" onclick="agregarDesdeCard(this)">Comprar</button>
         </div>
       </div>
@@ -151,7 +152,34 @@
     <div class="sub-products">
 
       <div class="card">
-        <img src="https://i.ytimg.com/vi/lw9l-0ipWyg/hq720.jpg">
+        <img src="recursos/maracuya.jpeg">
+        <div class="card-content">
+          <h3>Maracuyá</h3>
+          <p>$1.000</p>
+          <button class="btn-carrito" onclick="agregarDesdeCard(this)">Comprar</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="recursos/boreo.jpeg">
+        <div class="card-content">
+          <h3>Oreo</h3>
+          <p>$1.000</p>
+          <button class="btn-carrito" onclick="agregarDesdeCard(this)">Comprar</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="recursos/fresa.jpg">
+        <div class="card-content">
+          <h3>Fresa</h3>
+          <p>$1.000</p>
+          <button class="btn-carrito" onclick="agregarDesdeCard(this)">Comprar</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="recursos/chocolate.jpg">
         <div class="card-content">
           <h3>Chocolate</h3>
           <p>$1.000</p>
@@ -169,18 +197,18 @@
       </div>
 
       <div class="card">
-        <img src="https://images.rappi.com/products/1716579144682_1716579143468_1716579141493.jpeg">
+        <img src="recursos/galleta.jpg">
         <div class="card-content">
-          <h3>Kola con leche</h3>
+          <h3>Galleta</h3>
           <p>$1.000</p>
           <button class="btn-carrito" onclick="agregarDesdeCard(this)">Comprar</button>
         </div>
       </div>
 
       <div class="card">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-q02V1zO2dnV87wZpJ29ZmxLXeFWDqW6Few&s">
+        <img src="recursos/bkola.jpeg">
         <div class="card-content">
-          <h3>Maracuyá</h3>
+          <h3>Kola con leche</h3>
           <p>$1.000</p>
           <button class="btn-carrito" onclick="agregarDesdeCard(this)">Comprar</button>
         </div>
@@ -234,7 +262,7 @@
     <div class="sub-products">
 
       <div class="card">
-        <img src="mosaico.jpeg">
+        <img src="recursos/mosaico.jpeg">
         <div class="card-content">
           <h3>Mosaico de Gelatina</h3>
           <p>$5.000</p>
@@ -328,4 +356,3 @@ window.onclick = function(event) {
 
 </body>
 </html>
-
